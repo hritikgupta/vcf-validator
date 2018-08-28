@@ -247,7 +247,7 @@ namespace ebi
             { { 120, -100 }, ZLIB }
         };
         
-         /*
+        /*
 	* If the first line of the VCF file has less than 5 characters,
 	* std::equal will cause a segmentation fault.	
         */
