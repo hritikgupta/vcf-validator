@@ -254,21 +254,20 @@ namespace ebi
             { { 120, -100 }, ZLIB }
         };
         
-         /*
-        * First line of vcf file is having smaller size than 5 characters
-        * which will be a problem for std::equal to check its extension
-        * It will cause a segmentation fault.
-        * According to spec first line of vcf, file can't be smaller than 5 characters.
+        /*
+		* If the first line of the VCF file has less than 5 characters,
+		* std::equal() will cause a segmentation fault.	
         */
-		if(line.size() >=5){
-			for (auto & type : types) {
-		        if (std::equal(type.first.begin(), type.first.end(), line.begin())) {
-		            compressed_file_warning(type.second);
-		            return type.second;
-		        }
-		    }
+		if (line.size() < 5) {
+			return NO_EXT;
 		}
-        return NO_EXT;
+
+		for (auto & type : types) {
+			if (std::equal(type.first.begin(), type.first.end(), line.begin())) {
+				compressed_file_warning(type.second);
+				return type.second;
+			}
+		}
     }
 
     void check_readability_of_file(const std::string & file_ext)
