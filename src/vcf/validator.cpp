@@ -255,19 +255,19 @@ namespace ebi
         };
         
         /*
-		* If the first line of the VCF file has less than 5 characters,
-		* std::equal() will cause a segmentation fault.	
+	* If the first line of the VCF file has less than 5 characters,
+	* std::equal() will cause a segmentation fault.	
         */
-		if (line.size() < 5) {
-			return NO_EXT;
-		}
+	if (line.size() < 5) {
+	    return NO_EXT;
+	}
 
-		for (auto & type : types) {
-			if (std::equal(type.first.begin(), type.first.end(), line.begin())) {
-				compressed_file_warning(type.second);
-				return type.second;
-			}
-		}
+	for (auto & type : types) {
+	    if (std::equal(type.first.begin(), type.first.end(), line.begin())) {
+	        compressed_file_warning(type.second);
+		return type.second;
+	    }
+	}
     }
 
     void check_readability_of_file(const std::string & file_ext)
